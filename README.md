@@ -6,6 +6,7 @@ PROJECT GOAL:
 To create a website that can serve the above purpose.
 The idea is: by inputting an image from a clip, and a stream url (YouTube exclusively),
              the site will return the exact timestamp of that clip image in the stream.
+
 Extended ideas: - using audio comparison as a method to find the timestamp
                 - the stream url input bar accepts twitch stream as an input
                 - full image and full image comparison right now, maybe consider template matching?
