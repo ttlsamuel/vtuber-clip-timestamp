@@ -1,41 +1,60 @@
-#Expand to see details
-'''
+# Expand to see project details
+"""
 PROJECT DESCRIPTION:
 We are trying to find the timestamp of a frame in a vtuber stream,
-which matches a specific frame from a vtuber clip
+ which matches a specific frame from a vtuber clip.
 
+PROJECT GOAL:
+To create a website that can serve the above purpose.
+The idea is: by inputting an image from a clip, and a stream url (YouTube exclusively),
+             the site will return the exact timestamp of that clip image in the stream.
+Extended ideas: - using audio comparison as a method to find the timestamp
+                - the stream url input bar accepts twitch stream as an input
+                - full image and full image comparison right now, maybe consider template matching?
 
 PROJECT PROGRESS:
-We can now use this programme to find the matching picture from a bunch of images
-'''
+This programme can now check which frame matches the clip frame on a local environment,
+ and then return the corresponding timestamp.
+To extract frames from the stream, use ffmpeg.
+
+Caution:
+- Check whether you have the right file extension name for ffmpeg command.
+- Check the type of image in the clip img file, it will be converted to jpg.
+- Check all directories!
+"""
 
 # necessary imports
 from datetime import datetime # for checking run time
 start_time = datetime.now() # for checking run time
 import os
 import cv2
-import imutils
-import numpy as np
+import re
+
+#import imutils
+#import numpy as np
 
 # frame from the clip
-img1 = cv2.imread(r"C:\Users\user\Desktop\clip img\main.jpg")
-img1 = cv2.resize(img1, (1980,1080))
+path = r'C:\Users\user\Desktop\video timestamp project\clip img'
+for filename in os.listdir(path):
+    os.rename(os.path.join(path,filename), os.path.join(path, 'main.jpg'))
+clip_img = cv2.imread(r"C:\Users\user\Desktop\video timestamp project\clip img\main.jpg")
+clip_img = cv2.resize(clip_img, (480, 360))
 
 # stream frames path
-path = r'C:\Users\user\Pictures\hajime'
+path = r'C:\Users\user\Desktop\video timestamp project\stream frame'
 
 most_similar_pixelDiff_num = float("inf")
 most_matching_frame = ""
-
+num_of_total_frames = 0
+int_most_matching_frame = 1
 
 # looping over frames and return the one that's most similar
 for filename in os.listdir(path):
-    filename = str(filename)
     #BEWARE OF the format of the stream frames
     img2 = cv2.imread(path + '\\' + filename)
-    img2 = cv2.resize(img2, (1980,1080))
+    img2 = cv2.resize(img2, (480, 360))
 
-    gray1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+    gray1 = cv2.cvtColor(clip_img, cv2.COLOR_BGR2GRAY)
     gray2 = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
 
     diff = cv2.absdiff(gray1, gray2)
@@ -45,14 +64,26 @@ for filename in os.listdir(path):
         most_similar_pixelDiff_num = diff.sum()
         most_matching_frame = filename
 
+    num_of_total_frames += 1
+
 
 # results
 print("The most matching frame is: " + most_matching_frame)
 print("The number of different pixel(s) is: " + str(most_similar_pixelDiff_num))
 
+
+# calculating and displaying timestamp
+int_most_matching_frame = int(re.findall(r'\d+', most_matching_frame)[0])
+timestamp =  int((int_most_matching_frame/num_of_total_frames)*(num_of_total_frames/30))
+time = timestamp; time = time % (24 * 3600); hour = time // 3600
+time %= 3600; minutes = time // 60; time %= 60; seconds = time
+print("The timestamp is: " + str(hour)
+      + " hour(s) " + str(minutes) + " minute(s) " + str(seconds) + " second(s).")
+
+
 # for checking run time
 end_time = datetime.now()
-print('Duration: {}'.format(end_time - start_time))
+print('Runtime: {}'.format(end_time - start_time))
 
 
 
