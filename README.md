@@ -19,8 +19,8 @@ To extract frames from the stream, use ffmpeg.
 
 Caution:
 - Check whether you have the right file extension name for ffmpeg command.
-- Check the type of image in the clip img file, it will be converted to jpg.
 - Check all directories!
+- Check the fps variable in video_timestamp_project.py, it affects the timestamp calculation!
 
 TO-DO:
 - lower the time for converting stream vod to frames by not using the jpeg format.
