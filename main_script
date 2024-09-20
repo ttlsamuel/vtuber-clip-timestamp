@@ -1,19 +1,15 @@
 from datetime import datetime
-start_time = datetime.now()
-import os
+from timestamp_functions import *
 import cv2
 
-# read file name from directories with one item
-def name_extract(path):
-    filename = str(os.listdir(path)[0])
-    name = os.path.join(path, filename)
-    return name
+start_time = datetime.now()
 
 # loading both video and frame
 clip_img_name   = name_extract(r'C:\Users\user\Desktop\video timestamp project\clip img')
 clip_img        = cv2.imread(clip_img_name)
-vod_name        = name_extract(r"C:\Users\user\Desktop\video timestamp project\stream vod")
+vod_name        = name_extract(r"C:\Users\user\Desktop\video timestamp project\ffmpeg vod")
 vod             = cv2.VideoCapture(vod_name)
+
 
 # necessary variables
 most_similar_pixelDiff_num      = float("inf")
@@ -26,11 +22,12 @@ clip_img_resize                 = cv2.resize(clip_img, (vod_width, vod_height) )
 gray_clip_img                   = cv2.cvtColor(clip_img_resize, cv2.COLOR_BGR2GRAY)
 
 
-
+# template matching
 while True:
     ret, frame = vod.read()
     if frame is None:
         break
+
     readFrame += 1
 
     gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -40,7 +37,6 @@ while True:
     if diff.sum() < most_similar_pixelDiff_num:
         most_similar_pixelDiff_num = diff.sum()
         most_matching_frame = readFrame
-
 
 
 # results
@@ -60,6 +56,9 @@ print("The approximate timestamp is: " + str(int(hour))
 end_time = datetime.now()
 print('Runtime: {}'.format(end_time - start_time))
 
-
 vod.release()
+
+
+
+
 
