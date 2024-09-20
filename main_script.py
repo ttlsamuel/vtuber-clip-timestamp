@@ -1,8 +1,8 @@
 from datetime import datetime
-from timestamp_functions import *
+start_time = datetime.now()
+from reconfig import name_extract, cleaning
 import cv2
 
-start_time = datetime.now()
 
 # loading both video and frame
 clip_img_name   = name_extract(r'C:\Users\user\Desktop\video timestamp project\clip img')
@@ -40,9 +40,9 @@ while True:
 
 
 # results
-print("The most matching frame is: " + str(most_matching_frame))
-print("The number of different pixel(s) is: " + str(most_similar_pixelDiff_num))
-print("The total number of frames is: " + str(readFrame))
+print("The most matching frame is: "            + str(most_matching_frame))
+print("The number of different pixel(s) is: "   + str(most_similar_pixelDiff_num))
+print("The total number of frames is: "         + str(readFrame))
 
 # calculating and displaying timestamp
 timestamp =  float((most_matching_frame/readFrame) * (readFrame / vod_fps))
@@ -58,8 +58,3 @@ print('Runtime: {}'.format(end_time - start_time))
 
 vod.release()
 cleaning(r'C:\Users\user\Desktop\video timestamp project\ffmpeg vod')
-
-
-
-
-
