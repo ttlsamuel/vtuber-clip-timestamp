@@ -1,20 +1,10 @@
-import os
+from file_func import name_extract, cleaning
 import subprocess
 
 # adjust reconfig_vid metadata here
 fps         = "fps=5"
 resolution  = "320x240"
 
-# read file name from directories with one item
-def name_extract(path):
-    filename = str(os.listdir(path)[0])
-    name = os.path.join(path, filename)
-    return name
-
-# remove contents in directories
-def cleaning(path):
-    for filename in os.listdir(path):
-        os.remove(os.path.join(path, filename))
 
 # executing reconfiguration of raw vod
 cleaning(r'C:\Users\user\Desktop\video timestamp project\ffmpeg vod')
