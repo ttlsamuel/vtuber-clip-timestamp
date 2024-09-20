@@ -3,6 +3,9 @@ start_time = datetime.now()
 from reconfig import name_extract, cleaning
 import cv2
 
+if input("Enter y (in small letter) if you wish to provide a url: ") == "y":
+    import yt_dlp_dl
+
 
 # loading both video and frame
 clip_img_name   = name_extract(r'C:\Users\user\Desktop\video timestamp project\clip img')
@@ -58,3 +61,5 @@ print('Runtime: {}'.format(end_time - start_time))
 
 vod.release()
 cleaning(r'C:\Users\user\Desktop\video timestamp project\ffmpeg vod')
+
+
