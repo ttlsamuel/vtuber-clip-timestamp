@@ -57,6 +57,7 @@ end_time = datetime.now()
 print('Runtime: {}'.format(end_time - start_time))
 
 vod.release()
+cleaning(r'C:\Users\user\Desktop\video timestamp project\ffmpeg vod')
 
 
 
