@@ -1,10 +1,17 @@
 from datetime import datetime
-start_time = datetime.now()
-from reconfig import name_extract, cleaning
+from file_func import name_extract, cleaning
+from yt_dlp_dl import yt_download
+from reconfig import reconfigure
+import time
 import cv2
 
+start_time = datetime.now()
+
 if input("Enter y (in small letter) if you wish to provide a url: ") == "y":
-    import yt_dlp_dl
+    yt_download()
+
+if input("Enter y (in small letter) if you wish to reconfigure your video: ") == "y":
+    reconfigure()
 
 
 # loading both video and frame
@@ -43,14 +50,14 @@ while True:
 
 
 # results
-print("The most matching frame is: "            + str(most_matching_frame))
+print("The most matching frame is:          "   + str(most_matching_frame))
 print("The number of different pixel(s) is: "   + str(most_similar_pixelDiff_num))
-print("The total number of frames is: "         + str(readFrame))
+print("The total number of frames is:       "   + str(readFrame))
 
 # calculating and displaying timestamp
 timestamp =  float((most_matching_frame/readFrame) * (readFrame / vod_fps))
-time = timestamp; time = time % (24 * 3600); hour = time // 3600
-time %= 3600; minutes = time // 60; time %= 60; seconds = time
+time_amount = timestamp; time_amount = time_amount % (24 * 3600); hour = time_amount // 3600
+time_amount %= 3600; minutes = time_amount // 60; time_amount %= 60; seconds = time_amount
 print("The approximate timestamp is: " + str(int(hour))
       + " hour(s) " + str(int(minutes)) + " minute(s) " + str("{:.1f}".format(seconds)) + " second(s).")
 
@@ -60,6 +67,10 @@ end_time = datetime.now()
 print('Runtime: {}'.format(end_time - start_time))
 
 vod.release()
-cleaning(r'C:\Users\user\Desktop\video timestamp project\ffmpeg vod')
 
+if input("Enter y (in small letter) if you wish to clear ffmpeg vod file: ") == "y":
+    cleaning(r'C:\Users\user\Desktop\video timestamp project\ffmpeg vod')
 
+print("\n")
+print("All commands executed without error. Proceed to terminate programme in 5 secs...")
+time.sleep(5)
