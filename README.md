@@ -16,9 +16,9 @@ PROJECT PROGRESS (How to run):
 1. Place one clip iamge in the "clip img".
 2. Place your video in the "raw vod" file if you have any to provide.
 3. Execute main_script.py
-4. If you did not provide any video, input a youtube url and choose the desired format for video downloading 
-5. Wait for the script to compute the timestamp for you
-6. (Recommended) Enter y to delete files in the "ffmpeg vod" vile
+4. If you did not provide any video, input a youtube url and choose the desired format for video downloading.
+5. Wait for the script to compute the timestamp for you.
+6. (Recommended) Enter y to delete files in the "ffmpeg vod" file.
 
 Caution:
 - Check all directories!
