@@ -1,1 +1,2 @@
-ffmpeg -i "C:\Users\user\Desktop\video timestamp project\stream vod\stream vod.mkv" -filter:v fps=5 -s 360x240 "C:\Users\user\Desktop\video timestamp project\stream frame\out-%03d.bmp"
+ffmpeg -i "C:\Users\user\Desktop\video timestamp project\ffmpeg vod\raw vod.mp4" -filter:v fps=5 -s 426x240 -preset ultrafast "C:\Users\user\Desktop\video timestamp project\ffmpeg vod\Reconfig_vid.mp4"
+
