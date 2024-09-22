@@ -12,13 +12,14 @@ Extended ideas:
 - using audio comparison as a method to find the timestamp
 - the stream url input bar accepts twitch stream as an input
 
-PROJECT PROGRESS (How to run):
+How to run:
 1. Place one clip iamge in the "clip img".
 2. Place your video in the "raw vod" file if you have any to provide.
 3. Execute main_script.py
 4. If you did not provide any video, input a youtube url and choose the desired format for video downloading.
-5. Wait for the script to compute the timestamp for you.
-6. (Recommended) Enter y to delete files in the "ffmpeg vod" file.
+5. (Recommended) Enter y to reconfigure the video for faster runtime 
+6. Wait for the script to compute the timestamp for you.
+7. (Recommended) Enter y to delete files in the "ffmpeg vod" file.
 
 Caution:
 - Check all directories!
