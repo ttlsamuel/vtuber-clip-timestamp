@@ -1,0 +1,1 @@
+yt-dlp --output "C:\Users\user\Desktop\video timestamp project\raw vod\%(title)s.%(ext)s" --embed-thumbnail -f worstvideo --merge-output-format mp4 "youtube_url_here"
