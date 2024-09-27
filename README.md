@@ -22,7 +22,7 @@ How to run:
 
 Caution:
 - Check all directories!
-- Requires ffmpeg and yt-dlp to run the programme
+- Requires ffmpeg, yt-dlp, audio-offset-finder to run the programme
 - Make sure that "clip img" folder contains your clip image (one only)
 - "ffmpeg vod" and "raw vod" folder cannot contain more than one file!
 
