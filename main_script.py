@@ -1,10 +1,9 @@
 from datetime import datetime
-from file_func import name_extract, cleaning
+from file_func import *
 from yt_dlp_dl import yt_download
 from reconfig import reconfigure
-import os
-import time
-import cv2
+from audio import audio_matching
+import os, sys, cv2
 
 start_time = datetime.now()
 
@@ -17,15 +16,20 @@ raw_vod_path     = r"C:\Users\user\Desktop\video timestamp project\raw vod"
 if input("Enter y (in small letter) if you wish to provide a url: ") == "y":
     yt_download()
 
-# if reconfig, read ffmpeg vod ; read raw vod if no file in ffmpeg vod
-if input("Enter y (in small letter) if you wish to reconfigure your video: ") == "y":
-    reconfigure()
-    vod_name = name_extract(ffmpeg_vod_path)
+# if user choose audio matching, skip the frame matching part
+if input("Enter a (in small) letter if you want to choose audio matching: ") == "a":
+    audio_matching()
+    input("All commands executed without error. Press Enter to exit programme. ")
+    sys.exit(0)
+
+
+# run frame matching from here
+reconfigure()
+
+if not os.listdir(ffmpeg_vod_path):
+    vod_name = name_extract(raw_vod_path)
 else:
-    if not os.listdir(ffmpeg_vod_path):
-        vod_name = name_extract(raw_vod_path)
-    else:
-        vod_name = name_extract(ffmpeg_vod_path)
+    vod_name = name_extract(ffmpeg_vod_path)
 
 
 # loading both video and frame
@@ -61,26 +65,19 @@ while True:
 
 
 # results
-print("The most matching frame is:          " + str(most_matching_frame))
-print("The number of different pixel(s) is: " + str(most_similar_pixelDiff_num))
-print("The total number of frames is:       " + str(readFrame))
+# print("The most matching frame is:          " + str(most_matching_frame))
+# print("The number of different pixel(s) is: " + str(most_similar_pixelDiff_num))
+# print("The total number of frames is:       " + str(readFrame))
 
 # calculating and displaying timestamp
 timestamp =  float((most_matching_frame/readFrame) * (readFrame / vod_fps))
-time_amount = timestamp; time_amount = time_amount % (24 * 3600); hour = time_amount // 3600
-time_amount %= 3600; minutes = time_amount // 60; time_amount %= 60; seconds = time_amount
-print("The approximate timestamp is: " + str(int(hour))
-      + " hour(s) " + str(int(minutes)) + " minute(s) " + str("{:.1f}".format(seconds)) + " second(s).")
+time_output(timestamp)
 
 # for checking run time
 end_time = datetime.now()
 print('Runtime: {}'.format(end_time - start_time))
 
 vod.release()
+cleaning(r'C:\Users\user\Desktop\video timestamp project\ffmpeg vod')
 
-if input("Enter y (in small letter) if you wish to clear ffmpeg vod file: ") == "y":
-    cleaning(r'C:\Users\user\Desktop\video timestamp project\ffmpeg vod')
-
-print("\n")
-print("All commands executed without error. Proceed to terminate programme in 5 secs...")
-time.sleep(5)
+input("All commands executed without error. Press Enter to exit programme. ")
