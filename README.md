@@ -9,7 +9,6 @@ The idea is: by inputting an image from a clip, and a stream url (YouTube exclus
              (technical difficulty: obtaining youtube video is inefficient)
 
 Extended ideas:
-- using audio comparison as a method to find the timestamp
 - the stream url input bar accepts twitch stream as an input
 
 How to run:
