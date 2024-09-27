@@ -3,7 +3,7 @@ from file_func import *
 from yt_dlp_dl import yt_download
 from reconfig import reconfigure
 from audio import audio_matching
-import os, sys, cv2
+import sys, cv2
 
 start_time = datetime.now()
 
@@ -17,7 +17,7 @@ if input("Enter y (in small letter) if you wish to provide a url: ") == "y":
     yt_download()
 
 # if user choose audio matching, skip the frame matching part
-if input("Enter a (in small) letter if you want to choose audio matching: ") == "a":
+if input("Enter a (in small letter) if you want to choose audio matching: ") == "a":
     audio_matching()
     input("All commands executed without error. Press Enter to exit programme. ")
     sys.exit(0)
@@ -26,17 +26,11 @@ if input("Enter a (in small) letter if you want to choose audio matching: ") == 
 # run frame matching from here
 reconfigure()
 
-if not os.listdir(ffmpeg_vod_path):
-    vod_name = name_extract(raw_vod_path)
-else:
-    vod_name = name_extract(ffmpeg_vod_path)
-
-
 # loading both video and frame
 clip_img_name   = name_extract(clip_img_path)
 clip_img        = cv2.imread(clip_img_name, cv2.IMREAD_GRAYSCALE)
+vod_name        = name_extract(ffmpeg_vod_path)
 vod             = cv2.VideoCapture(vod_name)
-
 
 # necessary variables
 most_similar_pixelDiff_num      = float("inf")
@@ -63,11 +57,8 @@ while True:
         most_similar_pixelDiff_num = diff.sum()
         most_matching_frame = readFrame
 
-
 # results
-# print("The most matching frame is:          " + str(most_matching_frame))
 # print("The number of different pixel(s) is: " + str(most_similar_pixelDiff_num))
-# print("The total number of frames is:       " + str(readFrame))
 
 # calculating and displaying timestamp
 timestamp =  float((most_matching_frame/readFrame) * (readFrame / vod_fps))
